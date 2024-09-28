@@ -1647,7 +1647,7 @@ img{
 
 .sec-title .text{
 	position: relative;
-	font-size: 16px;
+	font-size: 18px;
 	line-height: 26px;
 	color: #848484;
 	font-weight: 400;
@@ -1913,7 +1913,7 @@ img{
 
 .about-section .text{
 	margin-bottom: 40px;
-	font-size: 16px;
+	font-size: 18px;
 	line-height: 26px;
 	color: #848484;
 	font-weight: 400;
@@ -3141,7 +3141,7 @@ img{
 	display: block;
 	font-size: 24px;
 	line-height: 1.3em;
-	color: #222222;
+	color: #df6512;
 	font-weight: 500;
 	padding-bottom: 15px;
 	margin-bottom: 33px;
@@ -3174,7 +3174,7 @@ img{
 .feature-block-two .lower-content .text{
 	position: relative;
 	display: block;
-	font-size: 15px;
+	font-size: 18px;
 	line-height: 26px;
 	color: #848484;
 	font-weight: 400;
