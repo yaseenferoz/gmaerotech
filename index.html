@@ -578,33 +578,34 @@
                         <h2>Schedule an appointment</h2>
                     </div>
                     <div class="contact-form">
-                        <form>
+                        <form id="my-form" action="https://formspree.io/f/xkgwdrve" method="POST"> 
                             <div class="row">
-                                <div class="form-group col-lg-6 col-md-6 col-sm-12">
-                                    <input type="text" name="username" placeholder="Your name" required="">
-                                </div>
-                                
-                                <div class="form-group col-lg-6 col-md-6 col-sm-12">
-                                    <input type="email" name="email" placeholder="Your email" required="">
-                                </div>
-
-                                <div class="form-group col-lg-6 col-md-6 col-sm-12">
-                                    <input type="text" name="phone" placeholder="Phone" required="">
-                                </div>
-
-                                <div class="form-group col-lg-6 col-md-6 col-sm-12">
-                                    <input type="text" name="sebsite" placeholder="Website" required="">
-                                </div>
-
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12">
-                                    <textarea name="message" placeholder="Your Massage"></textarea>
-                                </div>
-                                
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12">
-                                    <button class="theme-btn btn-style-one" type="submit" name="Submit">Send Message</button>
-                                </div>
+                              <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                                <input type="text" name="username" placeholder="Your name" required="">
+                              </div>
+                          
+                              <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                                <input type="email" name="email" placeholder="Your email" required="">
+                              </div>
+                          
+                              <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                                <input type="text" name="phone" placeholder="Phone">
+                              </div>
+                          
+                              <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                                <input type="text" name="website" placeholder="Website">
+                              </div>
+                          
+                              <div class="form-group col-lg-12 col-md-12 col-sm-12">
+                                <textarea name="message" placeholder="Your message"></textarea>
+                              </div>
+                          
+                              <div class="form-group col-lg-12 col-md-12 col-sm-12">
+                                <button class="theme-btn btn-style-one" id="my-form-button" type="submit" name="Submit">Send Message</button>
+                                <p id="my-form-status"></p>
+                              </div>
                             </div>
-                        </form>
+                          </form>
                     </div>
                 </div>
             </div>
@@ -736,6 +737,51 @@
 <script src="js/knob.js"></script>
 <script src="js/appear.js"></script>
 <script src="js/script.js"></script>
+<script>
+    
+var form = document.getElementById("my-form");
+
+async function handleSubmit(event) {
+  event.preventDefault();
+  
+  var status = document.getElementById("my-form-status");
+  var submitButton = document.getElementById("my-form-button");
+  var data = new FormData(event.target);
+  
+  // Disable the submit button to prevent multiple submissions
+  submitButton.disabled = true;
+  
+  fetch(event.target.action, {
+    method: form.method,
+    body: data,
+    headers: {
+      'Accept': 'application/json'
+    }
+  }).then(response => {
+    if (response.ok) {
+      status.innerHTML = "Thanks for your submission!";
+      form.reset();
+    } else {
+      response.json().then(data => {
+        if (Object.hasOwn(data, 'errors')) {
+          status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+        } else {
+          status.innerHTML = "Oops! There was a problem submitting your form";
+        }
+      });
+    }
+    // Re-enable the submit button after the response
+    submitButton.disabled = false;
+  }).catch(error => {
+    status.innerHTML = "Oops! There was a problem submitting your form";
+    // Re-enable the submit button in case of error
+    submitButton.disabled = false;
+  });
+}
+
+form.addEventListener("submit", handleSubmit);
+
+</script>
 </body>
 
 </html>
